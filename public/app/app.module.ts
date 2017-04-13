@@ -8,6 +8,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './nav/nav.component';
 
+/* custom */
+
+import {SocketService} from './shared/socket.service'
+
+
 @NgModule({
   imports: [ BrowserModule,
                    FormsModule,
@@ -17,7 +22,7 @@ import { NavbarComponent } from './nav/nav.component';
                           HomeComponent,
                           NavbarComponent
                           ],
-  providers: [ ],
+  providers: [SocketService ],
   bootstrap:    [ AppComponent ]
 })
 

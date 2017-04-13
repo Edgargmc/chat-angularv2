@@ -7,5 +7,26 @@ export class SocketService{
 
     constructor(){
         this.socket = io.connect();
+        console.log(this.socket);
     }
+
+    on(eventName: any, callback:any){
+        if(this.socket){
+            this.socket.on(eventName, function(data:any){
+                callback(data);
+            });
+        }
+    };
+
+    emit(eventName: any, data:any){
+        if(this.socket){
+            this.socket.emit(eventName, data);
+        }
+    };
+
+    removeListener(eventName: any){
+        if(this.socket){
+            this.socket.removeListener(eventName);
+        }
+    };
 }

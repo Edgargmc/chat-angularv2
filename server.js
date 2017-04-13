@@ -10,24 +10,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 io.on('connection', (socket)=>{
     console.log('new connection made');
-
-/**
- * Test message
- */
-
-    socket.on('event1',(data)=>{
-        console.log(data.msg);
-    });
-
-    socket.emit('event2', {
-        msg: 'Server to cLient, do you read me ? Over.'
-    });
-
-    socket.on('event3', (data)=>{
-        console.log(data.msg);
-        socket.emit('event4', {
-        msg:'Loud and Clear'
-        });
+    /* Message*/
+    socket.on('send-message', (data)=>{
+            console.log(data.text);
+            io.emit('message-received', data);
     });
 });
 

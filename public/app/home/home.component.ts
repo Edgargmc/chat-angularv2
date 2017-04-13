@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as io from 'socket.io-client';
+import {SocketService} from '../shared/socket.service'
+
 
 @Component({
     moduleId: module.id,
@@ -9,26 +10,36 @@ import * as io from 'socket.io-client';
 })
 
 export class HomeComponent implements OnInit {
-    socket: SocketIOClient.Socket;
-    
-    constructor(){
-        this.socket = io.connect();
+    messageText: any;
+    messages:Array<any>;
+    avatar: string = 'https://api.adorable.io/avatars/30/abott@adorable.png';    
+    selfAuthored: boolean = false;
+
+    constructor(private _socketService: SocketService ){
     }
     
     ngOnInit(){ 
-        this.socket.emit('event1',{
-            msg: 'Cliente to server, can you hear me server?'
-        });
-    
-       this.socket.on('event2',(data:any)=> {
-           console.log(data.msg);
-           this.socket.emit('event3', {
-            msg: 'yes, it working for me'
-           })
-        });
-    
-        this.socket.on('event4', (data:any)=>{
-            console.log(data.msg);
-         });
+       this.messages = new Array();
+
+       this._socketService.on('message-received', (msg: any)=>{
+            this.messages.push(msg);
+            console.log(msg);
+            console.log(this.messages);
+       }); 
     }
+
+    sendMessage(){
+        const message ={
+            text: this.messageText,
+            date: Date.now(),
+            imageUrl:this.avatar
+        };
+        this._socketService.emit('send-message', message);
+        this.messageText = '';
+    }
+
+
+
 }
+
+
