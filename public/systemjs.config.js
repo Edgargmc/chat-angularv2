@@ -5,14 +5,14 @@
     'app': 'app',
     '@angular': 'lib/@angular',
     'rxjs': 'lib/rxjs',
-    'socket.io':'lib/socket.io-client'
+    'socket.io-client': 'lib/socket.io-client/dist'
   };
 
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app': { main: 'main.js',  defaultExtension: 'js' },
     'rxjs': { defaultExtension: 'js' },
-    'socket.io-client': { main: 'dist/socket.io.js',  defaultExtension: 'js' },
+    'socket.io-client':    { main: 'socket.io.js'}
   };
 
   var ngPackageNames = [
