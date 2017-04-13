@@ -2,7 +2,12 @@ var gulp = require('gulp'),
     del = require('del'),
     sequence = require('run-sequence'),
     libPath = 'public/lib',
-    nodeModulesPath = 'node_modules';
+    nodeModulesPath = 'node_modules',
+    appfolder = 'public/',
+    folderjs = 'public/js'
+    sourcemaps = require('gulp-sourcemaps'),
+    ts = require('gulp-typescript')
+    ;
 
 gulp.task('clean', function () {
   return del(libPath + '/**/*', { force: true });
@@ -48,3 +53,22 @@ gulp.task('copy:socketIO', function() {
 });
 
 gulp.task('default', ['copy:libs']);
+
+
+gulp.task('build-tsc', function(){
+    //let project = ts.createProject('tsconfig.json');
+    //var project = ts.createProject('tsconfig.json');
+    const project = require('./tsconfig.json');
+    let tsCompilerOptions = require('./tsconfig').compilerOptions;
+
+  return gulp.src(appfolder + '**/*.ts')
+     .pipe(sourcemaps.init())
+     .pipe(ts(project.compilerOptions))
+     .pipe(sourcemaps.write())
+     .pipe(gulp.dest(appfolder));
+});
+
+gulp.task('watch', function () {
+  console.log('watching-files');
+  gulp.watch(appfolder + '**/*ts', ['build-tsc'] );
+});

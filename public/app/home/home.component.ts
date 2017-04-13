@@ -15,7 +15,11 @@ export class HomeComponent implements OnInit {
     avatar: string = 'https://api.adorable.io/avatars/30/abott@adorable.png';    
     selfAuthored: boolean = false;
 
-    constructor(private _socketService: SocketService ){
+     constructor(private _socketService: SocketService ){
+            console.log('hola');
+            console.log('hola');
+            console.log('hola');
+            console.log('hola');
     }
     
     ngOnInit(){ 

@@ -5,7 +5,11 @@ import { Component } from '@angular/core';
   selector: 'ng-app',
   templateUrl: 'app.template.html'
 })
+ 
+ 
 
 export class AppComponent {
   appName: string = "Angular Boilerplate";
+  algo: string = "holan"; 
 }
+
